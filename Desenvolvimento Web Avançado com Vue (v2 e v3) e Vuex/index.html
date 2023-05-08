@@ -11,13 +11,39 @@
 <body>
     Test Live Server
     <div id="app">
-        {{msg}} 
+        {{msg}}<br>
+        Nome: {{perfil.nome}} <br>
+        Idade: {{perfil.idade}} <br>
+        hobbies: {{hobbies[1]}} <br>
+        está logado: {{logado}} <br>
+        cursos: {{perfil.cursos[1].nome}}, {{perfil.cursos[1].cargaHoraria}}  <br>
     </div>
     <script>
         const vm = new Vue({
             el: '#app', 
             data: {
-                msg: 'Primeiro template controlado pelo Vue'
+                msg: 'Primeiro template controlado pelo Vue',
+                valorTotal: 150.47,
+                logado: false,
+                hobbies: [
+                    'VideoGame',
+                    'Ciclismo'
+                ],
+                perfil: {
+                    nome: 'Luis A.',
+                    site: 'luis4riel',
+                    idade: 26,
+                    cursos: [
+                        { 
+                            nome: 'csharp',
+                            cargaHoraria: '50 horas' 
+                        },
+                        { 
+                            nome: 'vue.js',
+                            cargaHoraria: '40 horas' 
+                        },
+                    ]
+                }
             }
         })
     </script>   
