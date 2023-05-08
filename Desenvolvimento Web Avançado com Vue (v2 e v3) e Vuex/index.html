@@ -14,35 +14,39 @@
         {{ subtrair() }} <br>
         {{ multiplicar() }} <br>
         {{ dividir() }} <br>
-        {{ numeroAleatorio() }}
     </div>
     <script>
         const vm = new Vue({
             el: '#app', 
-            data: {},
+            data: {
+
+                n1: 10,
+                n2: 20,
+            },
             methods: {
                 //convencional
                 somar: function somar(){
-                    return 4+2;
+                    return this.n1+this.n2;
                 },
                 //anônima
                 subtrair: function(){
-                    return 4-2;
+                    return this.n1-this.n2;
                 },
                 //arrow function
                 multiplicar: () => {
+                    
+                    // o this.n2... não funciona por conta do contexto léxico
+                    console.log('***' + this); // ***[object Window]
+                    //não faz referencia ao contexto de vue, está vinculado ao contexto de window
+                    //logo não é recomendado essa forma para definição de methods
+                    
                     return 4*2;
+                    
                 },
                 //forma mais "enxuta" de definir o método, a informação atribuida a chave é respectivamente a mesma de mesmo valor
                 dividir() {
-                    return 4/2;
+                    return this.n1/this.n2;
                 },
-                //exemplo -> 
-                numeroAleatorio: function numeroAleatorio(){
-                    return Math.random();
-                }
-
-                // emboras todas funcionem, é melhor utilizar apenas 1 aproachs para melhor leitura do código...
             },
         })
     </script>   
