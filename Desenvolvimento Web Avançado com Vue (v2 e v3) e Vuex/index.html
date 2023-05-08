@@ -9,42 +9,41 @@
     <title>Document</title>
 </head>
 <body>
-    Test Live Server
     <div id="app">
-        {{msg}}<br>
-        Nome: {{perfil.nome}} <br>
-        Idade: {{perfil.idade}} <br>
-        hobbies: {{hobbies[1]}} <br>
-        está logado: {{logado}} <br>
-        cursos: {{perfil.cursos[1].nome}}, {{perfil.cursos[1].cargaHoraria}}  <br>
+        {{ somar() }} <br>
+        {{ subtrair() }} <br>
+        {{ multiplicar() }} <br>
+        {{ dividir() }} <br>
+        {{ numeroAleatorio() }}
     </div>
     <script>
         const vm = new Vue({
             el: '#app', 
-            data: {
-                msg: 'Primeiro template controlado pelo Vue',
-                valorTotal: 150.47,
-                logado: false,
-                hobbies: [
-                    'VideoGame',
-                    'Ciclismo'
-                ],
-                perfil: {
-                    nome: 'Luis A.',
-                    site: 'luis4riel',
-                    idade: 26,
-                    cursos: [
-                        { 
-                            nome: 'csharp',
-                            cargaHoraria: '50 horas' 
-                        },
-                        { 
-                            nome: 'vue.js',
-                            cargaHoraria: '40 horas' 
-                        },
-                    ]
+            data: {},
+            methods: {
+                //convencional
+                somar: function somar(){
+                    return 4+2;
+                },
+                //anônima
+                subtrair: function(){
+                    return 4-2;
+                },
+                //arrow function
+                multiplicar: () => {
+                    return 4*2;
+                },
+                //forma mais "enxuta" de definir o método, a informação atribuida a chave é respectivamente a mesma de mesmo valor
+                dividir() {
+                    return 4/2;
+                },
+                //exemplo -> 
+                numeroAleatorio: function numeroAleatorio(){
+                    return Math.random();
                 }
-            }
+
+                // emboras todas funcionem, é melhor utilizar apenas 1 aproachs para melhor leitura do código...
+            },
         })
     </script>   
 </body>
