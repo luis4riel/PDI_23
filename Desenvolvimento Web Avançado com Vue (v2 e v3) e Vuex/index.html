@@ -18,54 +18,25 @@
 </head>
 <body>
     <div id="app">
-        {{ somar() }} <br>
-        {{ subtrair() }} <br>
-        {{ multiplicar() }} <br>
-        {{ dividir() }} <br>
-
-        <a :href="site">Site</a>
-        <p v-bind:class="cor">Entendo a diretiva v-bind</p>
-        <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
-        <input type="checkbox" :checked="check">
-        {{ 4 + 4}}
-        <input :value="2+2" type="text" :class="1==1? 'rosa': vermelho">
+        <input type="text" name="" id="" @keyup="imprimitText('Enviando Parametro',5, booleano)">
+        <button @click="mensagemAlerta($event)">PressMe</button>
     </div>
     <script>
         const vm = new Vue({
             el: '#app', 
             data: {
-                n1: 10,
-                n2: 20,
-                site: 'www.google.com',
-                cor: 'vermelho',
-                instrucaoDePreenchimento: 'Placeholder - diretiva v-bind',
-                valor: 'Entendento a diretiva v-bind',
-                check:true
+                booleano: true
             },
             methods: {
-                //convencional
-                somar: function somar(){
-                    return this.n1+this.n2;
+                imprimitText(text, number, bool){
+                    console.log(text)
+                    console.log(number)
+                    console.log(bool)
                 },
-                //anônima
-                subtrair: function(){
-                    return this.n1-this.n2;
-                },
-                //arrow function
-                multiplicar: () => {
-                    
-                    // o this.n2... não funciona por conta do contexto léxico
-                    console.log('***' + this); // ***[object Window]
-                    //não faz referencia ao contexto de vue, está vinculado ao contexto de window
-                    //logo não é recomendado essa forma para definição de methods
-                    
-                    return 4*2;
-                    
-                },
-                //forma mais "enxuta" de definir o método, a informação atribuida a chave é respectivamente a mesma de mesmo valor
-                dividir() {
-                    return this.n1/this.n2;
-                },
+                mensagemAlerta(event){
+                    console.log(event)
+                    alert('Mensagem de alerta')
+                }
             },
         })
     </script>   
