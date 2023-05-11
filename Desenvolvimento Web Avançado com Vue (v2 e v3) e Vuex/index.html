@@ -7,6 +7,14 @@
     <script src="./vue.js"></script> <!-- VIA DOWNLOAD (Usando a versão das aulas)-->
     <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> > LINK CDN: TODO-->
     <title>Document</title>
+    <style>
+        .vermelho{
+            color: red;
+        }
+        .rosa{
+            color: pink;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -14,14 +22,25 @@
         {{ subtrair() }} <br>
         {{ multiplicar() }} <br>
         {{ dividir() }} <br>
+
+        <a :href="site">Site</a>
+        <p v-bind:class="cor">Entendo a diretiva v-bind</p>
+        <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
+        <input type="checkbox" :checked="check">
+        {{ 4 + 4}}
+        <input :value="2+2" type="text" :class="1==1? 'rosa': vermelho">
     </div>
     <script>
         const vm = new Vue({
             el: '#app', 
             data: {
-
                 n1: 10,
                 n2: 20,
+                site: 'www.google.com',
+                cor: 'vermelho',
+                instrucaoDePreenchimento: 'Placeholder - diretiva v-bind',
+                valor: 'Entendento a diretiva v-bind',
+                check:true
             },
             methods: {
                 //convencional
