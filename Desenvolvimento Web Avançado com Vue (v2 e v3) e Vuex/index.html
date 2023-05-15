@@ -4,41 +4,79 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./vue.js"></script> <!-- VIA DOWNLOAD (Usando a versão das aulas)-->
-    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> > LINK CDN: TODO-->
+    <script src="./vue.js"></script>
     <title>Document</title>
     <style>
-        .vermelho{
-            color: red;
+        .verde {
+            background-color:green
         }
-        .rosa{
-            color: pink;
+        .branco {
+            background-color:white
         }
+
+        .azul {
+            background-color:blue
+        }
+        
+        .vermelho {
+            background-color:red
+        }
+
+        .borda {
+            border:1px solid
+        }
+
+        .div-principal {
+            width:200px;
+            height:200px
+        }
+
+        .div-comum {
+            width:50px;
+            height:50px;
+            display: inline-block;
+        }
+        
     </style>
 </head>
 <body>
     <div id="app">
-        <input type="text" name="" id="" @keyup="imprimitText('Enviando Parametro',5, booleano)">
-        <button @click="mensagemAlerta($event)">PressMe</button>
+        <div class="borda div-principal" :class="cor">
+            Cor: {{ cor }}
+            <br>
+            Posição X do Mouse: {{ posicaoX }}
+            Posição Y do Mouse: {{ posicaoY }}
+        </div>
+        <hr>
+        <div @click="mudarCor('verde')" class="borda div-comum"></div>
+        <div 
+            class="borda div-comum" 
+            @mouseover="mudarCor('azul')" 
+            @mouseout="mudarCor('vermelho')">
+        </div>
+        <div class="borda div-comum" @mousemove="coordenadas($event)"></div>
     </div>
+
     <script>
+
         const vm = new Vue({
-            el: '#app', 
+            el: '#app',
             data: {
-                booleano: true
+                cor: 'branco',
+                posicaoX: 0,
+                posicaoY: 0
             },
             methods: {
-                imprimitText(text, number, bool){
-                    console.log(text)
-                    console.log(number)
-                    console.log(bool)
+                mudarCor(c) {
+                    this.cor = c
                 },
-                mensagemAlerta(event){
-                    console.log(event)
-                    alert('Mensagem de alerta')
+                coordenadas(e) {
+                    this.posicaoX = e.clientX
+                    this.posicaoY = e.clientY
                 }
-            },
+            }
         })
-    </script>   
+
+    </script>
 </body>
 </html>
