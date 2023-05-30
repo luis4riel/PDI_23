@@ -34,14 +34,14 @@
                             <img :src="pao[0]">
                             <img :src="alface">
                             <img :src="ketchup">
-                            <img :src="maionese">
                             <img :src="mostarda">
+                            <img :src="maionese">
                             <img :src="hamburguer">
                             <img :src="pao[1]">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" v-if="etapa == 1">
                     <!-- TIPO DO PÃO -->
                     <div class="row mt-2">
                         <div class="col">
@@ -121,6 +121,58 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" @click="fazerPedido()">Fazer pedido</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" v-if="etapa == 2">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">INFORME SEUS DADOS</div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome</label>
+                                        <input type="text" class="form-control" v-model="inputNome">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" v-model="inputEndereco">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-between">
+                            <button type="button" class="btn btn-warning" @click="etapa -= 1">Voltar para o lanche</button>
+                            <button type="button" class="btn btn-success" @click="confirmarPedido()">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" v-if="etapa == 3">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">PEDIDO CONFIRMADO</div>
+                                <div class="card-body">
+                                    <p>Agora é só aguardar 10 minutinhos!</p>
+                                    <p>Vamos chamar vc em breve ;)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-between">
+                            <button type="button" class="btn btn-primary" @click="etapa = 1">Repetir pedido</button>
+                            <button type="button" class="btn btn-success" @click="novoPedido()">Novo pedido</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -136,44 +188,51 @@
                 inputSaladas: [],
                 inputMolhos: [],
                 inputHamburguer: '',
+                etapa: 1,
+                inputNome: '',
+                inputEndereco: '',
+                novoPedidoAssincrono: null
             },
             computed: {
-                pao(){
-                    switch(this.inputTipoPao){
-                        case 'gergelim':
-                            return ['imagens/pao_gergelim_superior.png','imagens/pao_gergelim_inferior.png']
-                        case 'australiano':
-                            return ['imagens/pao_australiano_superior.png','imagens/pao_australiano_inferior.png']
+                pao() {
+                    switch(this.inputTipoPao) {
+                        case 'gergelim': 
+                            return ['imagens/pao_gergelim_superior.png', 'imagens/pao_gergelim_inferior.png']
+                        case 'australiano': 
+                            return ['imagens/pao_australiano_superior.png', 'imagens/pao_australiano_inferior.png']
                         default:
-                            return ['imagens/padrao/pao_superior.png','imagens/padrao/pao_inferior.png']
+                            return ['imagens/padrao/pao_superior.png', 'imagens/padrao/pao_inferior.png']
                     }
+                    
                 },
-                alface(){
-                    if(this.inputSaladas.includes('alface')){
+                alface() {
+                    if(this.inputSaladas.includes('alface')) {
                         return 'imagens/alface.png'
                     }
+
                     return 'imagens/padrao/alface.png'
+                    
                 },
-                ketchup(){   
-                    if(this.inputMolhos.includes('ketchup')){
+                ketchup() {
+                    if(this.inputMolhos.includes('ketchup')) {
                         return 'imagens/ketchup.png'
                     }
                     return 'imagens/padrao/molho.png'
                 },
-                mostarda(){
-                    if(this.inputMolhos.includes('mostarda')){
-                        return 'imagens/mostarda.png'
-                    }
-                    return 'imagens/padrao/molho.png'
-                },
-                maionese(){
-                    if(this.inputMolhos.includes('maionese')){
+                maionese() {
+                    if(this.inputMolhos.includes('maionese')) {
                         return 'imagens/maionese.png'
                     }
                     return 'imagens/padrao/molho.png'
                 },
-                hamburguer(){
-                    switch(this.inputHamburguer){
+                mostarda() {
+                    if(this.inputMolhos.includes('mostarda')) {
+                        return 'imagens/mostarda.png'
+                    }
+                    return 'imagens/padrao/molho.png'
+                },
+                hamburguer() {
+                    switch(this.inputHamburguer) {
                         case 'bovino':
                             return 'imagens/bovino.png'
                         case 'frango':
@@ -182,6 +241,43 @@
                             return 'imagens/soja.png'
                         default:
                             return 'imagens/padrao/hamburguer.png'
+                    }
+                }
+            },
+            methods: {
+                fazerPedido() {
+                    if(this.inputTipoPao && this.inputHamburguer) {
+                        this.etapa = 2
+                    } else {
+                        alert('Você precisa selecionar no mínimo um pão e um hambúrguer')
+                    }
+                },
+                confirmarPedido() {
+                    if(this.inputNome && this.inputEndereco) {
+                        this.etapa = 3
+
+                        //realizar uma requisição http enviado os dados do pedido para o back-end da aplicação
+
+                        this.novoPedidoAssincrono = setTimeout(() => this.novoPedido(), 7000)
+                    } else {
+                        alert('Você precisa informar o seu nome e endereço')
+                    }
+                },
+                novoPedido() {
+                    this.etapa = 1
+                    
+                    this.inputTipoPao = ''
+                    this.inputSaladas = []
+                    this.inputMolhos = []
+                    this.inputHamburguer = ''
+                    this.inputNome = ''
+                    this.inputEndereco = ''
+                }
+            },
+            watch: {
+                etapa(novoValor) {
+                    if(novoValor == 1) {
+                        clearTimeout(this.novoPedidoAssincrono)
                     }
                 }
             }
