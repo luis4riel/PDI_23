@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Arquitetura Microservices/S07 - Shopping/Shopping.API/bin/Debug/net6.0
+/Arquitetura Microservices/S07 - Shopping/Shopping.API/obj/Debug/net6.0
+/Arquitetura Microservices/S07 - Shopping/Shopping.API/obj
+/Arquitetura Microservices/S07 - Shopping/Shopping.Web/.vs/Shopping.Web
+/Arquitetura Microservices/S07 - Shopping/Shopping.Web/bin/Debug/net6.0
+/Arquitetura Microservices/S07 - Shopping/.vs/Shopping/FileContentIndex
+/Arquitetura Microservices/S07 - Shopping/Shopping.Web/obj/Debug/net6.0
+/Arquitetura Microservices/S07 - Shopping/Shopping.Web/obj
