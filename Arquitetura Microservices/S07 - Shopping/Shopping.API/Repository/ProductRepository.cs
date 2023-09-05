@@ -62,12 +62,5 @@ namespace Shopping.API.Repository
                 .FirstOrDefaultAsync();
             return _mapper.Map<ProductVO>(product);
         }
-
-        public async Task<ProductVO> FindByName(string productName)
-        {
-            var product = await _context.Products.Where(p => p.Name == productName)
-              .FirstOrDefaultAsync();
-            return _mapper.Map<ProductVO>(product);
-        }
     }
 }
